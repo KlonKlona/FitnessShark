@@ -1,0 +1,45 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+    <string-array name="usergoallist">
+        <item>@string/goal_build_muscle</item>
+        <item>@string/goal_lose_fat</item>
+        <item>@string/goal_maintain_weight</item>
+        <item>@string/goal_strength</item>
+        <item>@string/goal_endurance</item>
+    </string-array>
+
+    <string-array name="userexperiencelist">
+        <item>@string/experience_beginner</item>
+        <item>@string/experience_amateur</item>
+        <item>@string/experience_intermediate</item>
+        <item>@string/experience_advanced</item>
+        <item>@string/experience_elite</item>
+    </string-array>
+
+    <string-array name="userpreffereddurationlist">
+        <item>@string/pref_duration_30</item>
+        <item>@string/pref_duration_45</item>
+        <item>@string/pref_duration_60</item>
+        <item>@string/pref_duration_75</item>
+        <item>@string/pref_duration_90</item>
+        <item>@string/pref_duration_long</item>
+    </string-array>
+
+    <string-array name="userpreffereddays">
+        <item>@string/pref_days_2</item>
+        <item>@string/pref_days_3</item>
+        <item>@string/pref_days_4</item>
+        <item>@string/pref_days_5</item>
+        <item>@string/pref_days_6</item>
+    </string-array>
+</resources>
