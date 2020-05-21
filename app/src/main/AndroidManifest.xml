@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".BottomNavigationActivity"
+            android:label="@string/title_activity_bottom_navigation"></activity>
+        <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_parameters" />
         <activity android:name=".MainActivity">
