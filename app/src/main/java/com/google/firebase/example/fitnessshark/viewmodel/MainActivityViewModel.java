@@ -17,8 +17,6 @@
 
 import androidx.lifecycle.ViewModel;
 
-import com.google.firebase.example.fitnessshark.Filters;
-
 /**
  * ViewModel for {@link com.google.firebase.example.fitnessshark.MainActivity}.
  */
@@ -27,12 +25,10 @@ public class MainActivityViewModel extends ViewModel {
 
     private boolean mIsSigningIn;
     private boolean mIsProfileCompleted;
-    private Filters mFilters;
 
     public MainActivityViewModel() {
         mIsSigningIn = false;
         mIsProfileCompleted = false;
-        mFilters = Filters.getDefault();
     }
 
     public boolean getIsSigningIn() {
@@ -41,14 +37,6 @@ public class MainActivityViewModel extends ViewModel {
 
     public void setIsSigningIn(boolean mIsSigningIn) {
         this.mIsSigningIn = mIsSigningIn;
-    }
-
-    public Filters getFilters() {
-        return mFilters;
-    }
-
-    public void setFilters(Filters mFilters) {
-        this.mFilters = mFilters;
     }
 
     public boolean getIsProfileCompleted() {

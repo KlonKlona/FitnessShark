@@ -7,12 +7,12 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
  */
 @IgnoreExtraProperties
 public class UserProfile {
-
     private String userId;
     private Goal goal;
     private DifficultyLevel experience;
     private int prefDuration;
     private int prefDaysWeek;
+    private WorkoutPlan currentWorkoutPlan;
 
     public UserProfile() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -25,8 +25,8 @@ public class UserProfile {
         this.experience = experience;
         this.prefDuration = prefDuration;
         this.prefDaysWeek = prefDaysWeek;
+        this.currentWorkoutPlan = null;
     }
-
 
     public Goal getGoal() {
         return goal;
@@ -66,5 +66,13 @@ public class UserProfile {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public WorkoutPlan getCurrentWorkoutPlan() {
+        return currentWorkoutPlan;
+    }
+
+    public void setCurrentWorkoutPlan(WorkoutPlan currentWorkoutPlan) {
+        this.currentWorkoutPlan = currentWorkoutPlan;
     }
 }

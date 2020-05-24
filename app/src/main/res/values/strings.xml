@@ -190,4 +190,6 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
     <string name="title_profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="generate_workout_plan">Generate Workout Plan</string>
 </resources>

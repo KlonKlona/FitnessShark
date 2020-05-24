@@ -38,7 +38,7 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
 
     interface FilterListener {
 
-        void onFilter(Filters filters);
+        void onFilter(WorkoutFilters filters);
 
     }
 
@@ -180,8 +180,8 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
         }
     }
 
-    public Filters getFilters() {
-        Filters filters = new Filters();
+    public WorkoutFilters getFilters() {
+        WorkoutFilters filters = new WorkoutFilters();
 
         if (mRootView != null) {
             filters.setCategory(getSelectedCategory());

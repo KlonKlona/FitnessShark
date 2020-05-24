@@ -26,7 +26,7 @@ import com.google.firebase.firestore.Query;
 /**
  * Object for passing filters around.
  */
-public class Filters {
+public class WorkoutFilters {
 
     private WorkoutCategory category = null;
     private DifficultyLevel difficulty = null;
@@ -35,10 +35,10 @@ public class Filters {
     private String sortBy = null;
     private Query.Direction sortDirection = null;
 
-    public Filters() {}
+    public WorkoutFilters() {}
 
-    public static Filters getDefault() {
-        Filters filters = new Filters();
+    public static WorkoutFilters getDefault() {
+        WorkoutFilters filters = new WorkoutFilters();
         filters.setSortBy(WorkoutPlan.FIELD_AVG_RATING);
         filters.setSortDirection(Query.Direction.DESCENDING);
 

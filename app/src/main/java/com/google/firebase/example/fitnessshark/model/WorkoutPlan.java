@@ -84,6 +84,7 @@ public class WorkoutPlan {
         this.workouts = workouts;
         this.numRatings = numRatings;
         this.avgRating = avgRating;
+        this.workouts = null;
     }
 
     public String getPhoto() {

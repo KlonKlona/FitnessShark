@@ -5,64 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E0E0E0"
-    tools:context="com.google.firebase.example.fitnessshark.MainActivity">
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:orientation="vertical"
-        android:layout_height="fill_parent">
+    tools:context="com.google.firebase.example.fitnessshark.ProfileActivity">
+<!--    <LinearLayout-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_height="fill_parent">-->
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/AppTheme"
-            app:logo="@drawable/ic_fitness_shark_logo"
-            app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
-            app:title="@string/user_profile"
-            app:titleMarginStart="24dp"
-            app:titleTextColor="@android:color/white" />
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar_profile"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="?attr/colorPrimary"-->
+<!--            android:theme="@style/AppTheme"-->
+<!--            app:logo="@drawable/ic_fitness_shark_logo"-->
+<!--            app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"-->
+<!--            app:title="@string/user_profile"-->
+<!--            app:titleMarginStart="24dp"-->
+<!--            app:titleTextColor="@android:color/white" />-->
 
-        <Spinner
-            android:id="@+id/SpinnerGoal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/usergoallist"
-            android:prompt="@string/user_goal">
-        </Spinner>
+<!--        <Spinner-->
+<!--            android:id="@+id/SpinnerGoal"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:entries="@array/usergoallist"-->
+<!--            android:prompt="@string/user_goal">-->
+<!--        </Spinner>-->
 
-        <Spinner
-            android:id="@+id/SpinnerExperience"
-            style="@style/SpinnerProfile"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/userexperiencelist"
-            android:prompt="@string/user_experience">
-        </Spinner>
+<!--        <Spinner-->
+<!--            android:id="@+id/SpinnerExperience"-->
+<!--            style="@style/SpinnerProfile"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:entries="@array/userexperiencelist"-->
+<!--            android:prompt="@string/user_experience">-->
+<!--        </Spinner>-->
 
-        <Spinner
-            android:id="@+id/SpinnerDuration"
-            style="@style/SpinnerProfile"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/userpreffereddurationlist"
-            android:prompt="@string/user_preferred_duration">
-        </Spinner>
+<!--        <Spinner-->
+<!--            android:id="@+id/SpinnerDuration"-->
+<!--            style="@style/SpinnerProfile"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:entries="@array/userpreffereddurationlist"-->
+<!--            android:prompt="@string/user_preferred_duration">-->
+<!--        </Spinner>-->
 
-        <Spinner
-            android:id="@+id/SpinnerDaysWeek"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/userpreffereddays"
-            android:prompt="@string/user_preferred_days">
-        </Spinner>
+<!--        <Spinner-->
+<!--            android:id="@+id/SpinnerDaysWeek"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:entries="@array/userpreffereddays"-->
+<!--            android:prompt="@string/user_preferred_days">-->
+<!--        </Spinner>-->
 
-        <Button
-            android:id="@+id/ButtonSubmit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="submit"
-            android:text="@string/save_profile"></Button>
+<!--        <Button-->
+<!--            android:id="@+id/ButtonSubmit"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="submit"-->
+<!--            android:text="@string/save_profile"></Button>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 </RelativeLayout>

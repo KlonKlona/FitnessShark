@@ -38,7 +38,6 @@ import com.google.firebase.example.fitnessshark.adapter.RatingAdapter;
 import com.google.firebase.example.fitnessshark.model.Rating;
 import com.google.firebase.example.fitnessshark.model.Restaurant;
 import com.google.firebase.example.fitnessshark.model.WorkoutPlan;
-import com.google.firebase.example.fitnessshark.util.RestaurantUtil;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -56,7 +55,7 @@ public class WorkoutPlanDetailActivity extends AppCompatActivity implements
 
     private static final String TAG = "WorkoutPlanDetail";
 
-    public static final String KEY_RESTAURANT_ID = "key_workout_plan_id";
+    public static final String KEY_WORKOUT_PLAN_ID = "key_workout_plan_id";
 
     private ImageView mImageView;
     private TextView mNameView;
@@ -97,9 +96,9 @@ public class WorkoutPlanDetailActivity extends AppCompatActivity implements
         findViewById(R.id.fab_show_rating_dialog).setOnClickListener(this);
 
         // Get restaurant ID from extras
-        String restaurantId = getIntent().getExtras().getString(KEY_RESTAURANT_ID);
+        String restaurantId = getIntent().getExtras().getString(KEY_WORKOUT_PLAN_ID);
         if (restaurantId == null) {
-            throw new IllegalArgumentException("Must pass extra " + KEY_RESTAURANT_ID);
+            throw new IllegalArgumentException("Must pass extra " + KEY_WORKOUT_PLAN_ID);
         }
 
         // Initialize Firestore

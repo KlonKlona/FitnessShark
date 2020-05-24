@@ -92,45 +92,55 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.example.fitnessshark.ui.notifications.NotificationsFragment;
 
 //implement the interface OnNavigationItemSelectedListener in your activity class
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements
+        BottomNavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = "MainActivity";
+
+    private static final int RC_SIGN_IN = 9001;
+
+    private MainActivityViewModel mViewModel;
+    private BottomNavigationView mNavigation;
+    private FirebaseFirestore mFirestore;
+    private Fragment mActualFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //loading the default fragment
-        loadFragment(new HomeFragment());
+        // View model
+        mViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+
+        // Enable Firestore logging
+        FirebaseFirestore.setLoggingEnabled(true);
+
+        // Initialize Firestore and the main RecyclerView
+        initFirestore();
 
         //getting bottom navigation view and attaching the listener
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(this);
+        mNavigation = findViewById(R.id.navigation);
+        mNavigation.setOnNavigationItemSelectedListener(this);
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Start sign in if necessary
+        if (shouldStartSignIn()) {
+            startSignIn();
+            return;
+        }
+
+        // Complete profile if necessary
+        if (shouldCompleteProfile()) {
+            startCompleteProfile();
+        }
 //
-//        // Start sign in if necessary
-//        if (shouldStartSignIn()) {
-//            startSignIn();
-//            return;
-//        }
-//
-//        // Complete profile if necessary
-//        if (shouldCompleteProfile()) {
-//            startCompleteProfile();
-//            return;
-//        }
-//
-//        // Apply filters
-//        onFilter(mViewModel.getFilters());
-//
-//        // Start listening for Firestore updates
-//        if (mAdapter != null) {
-//            mAdapter.startListening();
-//        }
-//    }
+//        //loading the default fragment
+//        loadFragment(new HomeFragment());
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -153,11 +163,32 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new ProfileFragment();
                 break;
 
+            case R.id.navigation_logout:
+                AuthUI.getInstance().signOut(this);
+                startSignIn();
+                break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + item.getItemId());
         }
 
         return loadFragment(fragment);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            mViewModel.setIsSigningIn(false);
+
+            if (resultCode != RESULT_OK && shouldStartSignIn()) {
+                startSignIn();
+            }
+        }
+    }
+
+    private void initFirestore() {
+        mFirestore = FirebaseFirestore.getInstance();
     }
 
     private boolean loadFragment(Fragment fragment) {
@@ -170,6 +201,60 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return true;
         }
         return false;
+    }
+
+    private boolean shouldStartSignIn() {
+        return (!mViewModel.getIsSigningIn() && FirebaseAuth.getInstance().getCurrentUser() == null);
+    }
+
+    private boolean shouldCompleteProfile() {
+        return (!mViewModel.getIsProfileCompleted());
+    }
+
+    private void startSignIn() {
+        // Sign in with FirebaseUI
+        Intent intentAuth = AuthUI.getInstance().createSignInIntentBuilder()
+                .setAvailableProviders(Collections.singletonList(
+                        new AuthUI.IdpConfig.EmailBuilder().build()))
+                .setIsSmartLockEnabled(false)
+                .build();
+
+        startActivityForResult(intentAuth, RC_SIGN_IN);
+
+        mViewModel.setIsSigningIn(true);
+    }
+
+    private void startCompleteProfile() {
+        // Check if profile of the user exist and is completed
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            final String userId = user.getUid();
+            mFirestore.collection("users")
+                    .whereEqualTo("userId", userId)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().isEmpty()) {
+                                    Log.d(TAG, "No Profile in Database! Redirecting to ProfilePage");
+                                    mNavigation.setSelectedItemId(R.id.navigation_profile);
+                                    loadFragment(new ProfileFragment());
+                                    mViewModel.setIsProfileComplete(true);
+                                } else {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                        mViewModel.setIsProfileComplete(true);
+                                        loadFragment(new HomeFragment());
+                                    }
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                mViewModel.setIsProfileComplete(false);
+                            }
+                        }
+                    });
+        }
     }
 }
 
@@ -381,7 +466,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //    }
 //
 //    @Override
-//    public void onFilter(Filters filters) {
+//    public void onFilter(WorkoutFilters filters) {
 //        // Construct query basic query
 //        Query query = mFirestore.collection("workoutPlans");
 //
@@ -474,7 +559,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //    public void onClearFilterClicked() {
 //        mFilterDialog.resetFilters();
 //
-//        onFilter(Filters.getDefault());
+//        onFilter(WorkoutFilters.getDefault());
 //    }
 //
 //    @Override
