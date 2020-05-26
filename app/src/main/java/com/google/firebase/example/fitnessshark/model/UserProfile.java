@@ -12,20 +12,62 @@ public class UserProfile {
     private DifficultyLevel experience;
     private int prefDuration;
     private int prefDaysWeek;
-    private WorkoutPlan currentWorkoutPlan;
+    private Workout currentWorkout;
 
-    public UserProfile() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
-    }
+    private int deadliftMax;
+    private int squatMax;
+    private int benchMax;
+    private int pressMax;
 
     public UserProfile(String userId, Goal goal, DifficultyLevel experience, int prefDuration,
-                       int prefDaysWeek) {
+                       int prefDaysWeek, int deadliftMax,
+                       int squatMax, int benchMax, int pressMax) {
         this.userId = userId;
         this.goal = goal;
         this.experience = experience;
         this.prefDuration = prefDuration;
         this.prefDaysWeek = prefDaysWeek;
-        this.currentWorkoutPlan = null;
+        this.currentWorkout = null;
+        this.deadliftMax = deadliftMax;
+        this.squatMax = squatMax;
+        this.benchMax = benchMax;
+        this.pressMax = pressMax;
+    }
+
+    public int getDeadliftMax() {
+        return deadliftMax;
+    }
+
+    public void setDeadliftMax(int deadliftMax) {
+        this.deadliftMax = deadliftMax;
+    }
+
+    public int getSquatMax() {
+        return squatMax;
+    }
+
+    public void setSquatMax(int squatMax) {
+        this.squatMax = squatMax;
+    }
+
+    public int getBenchMax() {
+        return benchMax;
+    }
+
+    public void setBenchMax(int benchMax) {
+        this.benchMax = benchMax;
+    }
+
+    public int getPressMax() {
+        return pressMax;
+    }
+
+    public void setPressMax(int pressMax) {
+        this.pressMax = pressMax;
+    }
+
+    public UserProfile() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     public Goal getGoal() {
@@ -68,11 +110,11 @@ public class UserProfile {
         this.userId = userId;
     }
 
-    public WorkoutPlan getCurrentWorkoutPlan() {
-        return currentWorkoutPlan;
+    public Workout getCurrentWorkout() {
+        return currentWorkout;
     }
 
-    public void setCurrentWorkoutPlan(WorkoutPlan currentWorkoutPlan) {
-        this.currentWorkoutPlan = currentWorkoutPlan;
+    public void setCurrentWorkout(Workout currentWorkout) {
+        this.currentWorkout = currentWorkout;
     }
 }
