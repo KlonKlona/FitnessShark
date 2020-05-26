@@ -96,6 +96,11 @@
         <item name="android:layout_height">150dp</item>
     </style>
 
+    <style name="AppTheme.WorkoutMonster">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">150dp</item>
+    </style>
+
     <style name="SpinnerProfile">
         <item name="android:paddingLeft">0dp</item>
         <item name="android:dropDownWidth">100dp</item>

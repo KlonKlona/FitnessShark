@@ -24,6 +24,15 @@
             app:titleMarginStart="24dp"
             app:titleTextColor="@android:color/white" />
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            style="@style/AppTheme.Subheader"
+            android:layout_marginLeft="8dp"
+            android:text="@string/user_goal"
+            android:layout_marginBottom="10dp" />
+
         <Spinner
             android:id="@+id/SpinnerGoal"
             android:layout_width="fill_parent"
@@ -31,6 +40,15 @@
             android:entries="@array/usergoallist"
             android:prompt="@string/user_goal">
         </Spinner>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:text="@string/user_experience"
+            style="@style/AppTheme.Subheader"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="10dp" />
 
         <Spinner
             android:id="@+id/SpinnerExperience"
@@ -41,6 +59,15 @@
             android:prompt="@string/user_experience">
         </Spinner>
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            style="@style/AppTheme.Subheader"
+            android:layout_marginLeft="8dp"
+            android:text="@string/user_preferred_duration"
+            android:layout_marginBottom="10dp" />
+
         <Spinner
             android:id="@+id/SpinnerDuration"
             style="@style/SpinnerProfile"
@@ -50,6 +77,15 @@
             android:prompt="@string/user_preferred_duration">
         </Spinner>
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            style="@style/AppTheme.Subheader"
+            android:layout_marginLeft="8dp"
+            android:text="@string/user_preferred_days"
+            android:layout_marginBottom="10dp" />
+
         <Spinner
             android:id="@+id/SpinnerDaysWeek"
             android:layout_width="fill_parent"
@@ -57,6 +93,38 @@
             android:entries="@array/userpreffereddays"
             android:prompt="@string/user_preferred_days">
         </Spinner>
+
+        <EditText
+            android:id="@+id/EditMaxDeadlift"
+            android:layout_height="wrap_content"
+            android:hint="@string/profile_max_deadlift"
+            android:inputType="number"
+            android:layout_width="fill_parent">
+        </EditText>
+
+        <EditText
+            android:id="@+id/EditMaxSquat"
+            android:layout_height="wrap_content"
+            android:hint="@string/profile_max_squat"
+            android:inputType="number"
+            android:layout_width="fill_parent">
+        </EditText>
+
+        <EditText
+            android:id="@+id/EditMaxBench"
+            android:layout_height="wrap_content"
+            android:hint="@string/profile_max_benech"
+            android:inputType="number"
+            android:layout_width="fill_parent">
+        </EditText>
+
+        <EditText
+            android:id="@+id/EditMaxPress"
+            android:layout_height="wrap_content"
+            android:hint="@string/profile_max_press"
+            android:inputType="number"
+            android:layout_width="fill_parent">
+        </EditText>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ButtonSubmit"

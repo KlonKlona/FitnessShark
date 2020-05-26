@@ -10,7 +10,8 @@
     <RelativeLayout
         android:id="@+id/workout_plan_top_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
 
         <ImageView
             android:id="@+id/workout_plan_image"
@@ -33,8 +34,7 @@
             android:background="?attr/selectableItemBackground"
             android:layout_alignLeft="@+id/workout_plan_name"
             android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/ic_close_white_24px"
-            android:layout_alignStart="@+id/workout_plan_name" />
+            app:srcCompat="@drawable/ic_close_white_24px" />
 
         <TextView
             android:id="@+id/workout_plan_name"
@@ -46,8 +46,7 @@
             android:layout_marginTop="8dp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            tools:text="Full Body Workout"
-            android:layout_marginStart="8dp" />
+            tools:text="Full Body Workout"/>
 
         <TextView
             android:id="@+id/workout_plan_exercises"
@@ -59,8 +58,7 @@
             android:gravity="center"
             android:layout_marginStart="8dp"
             android:textColor="@android:color/white"
-            tools:text="4 Exercises"
-            android:layout_alignStart="@+id/workout_plan_name" />
+            tools:text="4 Exercises" />
 
         <TextView
             android:id="@+id/workout_plan_days_week"
@@ -73,9 +71,7 @@
             android:layout_toRightOf="@+id/workout_plan_name"
             android:gravity="center"
             android:textColor="@android:color/white"
-            tools:text="3 days / week"
-            android:layout_marginStart="4dp"
-            android:layout_toEndOf="@+id/workout_plan_name" />
+            tools:text="3 days / week" />
 
         <TextView
             android:id="@+id/workout_plan_sets"
@@ -123,8 +119,7 @@
             android:layout_below="@+id/workout_plan_category"
             android:layout_toRightOf="@+id/workout_plan_divider"
             android:textColor="@android:color/white"
-            tools:text="Intermediate"
-            android:layout_toEndOf="@+id/workout_plan_divider" />
+            tools:text="Intermediate" />
 
         <TextView
             android:id="@+id/workout_plan_duration"
@@ -137,9 +132,7 @@
             android:layout_marginTop="8dp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            tools:text="90 min"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="8dp" />
+            tools:text="90 min" />
 
     </RelativeLayout>
 
@@ -151,13 +144,11 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="-28dp"
         android:layout_marginRight="16dp"
-        app:srcCompat="@drawable/ic_add_white_24px"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp" />
+        app:srcCompat="@drawable/ic_add_white_24px" />
 
-    <!-- Exercises -->
+    <!-- Ratings -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_exercises"
+        android:id="@+id/recycler_ratings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/workout_plan_top_card"
@@ -168,9 +159,9 @@
         android:visibility="gone"
         tools:listitem="@layout/item_rating" />
 
-    <!-- View for empty exercises -->
+    <!-- View for empty ratings -->
     <LinearLayout
-        android:id="@+id/view_empty_exercises"
+        android:id="@+id/view_empty_ratings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -182,14 +173,14 @@
         tools:visibility="visible">
 
         <ImageView
-            android:src="@drawable/workout_monster"
-            style="@style/AppTheme.WorkoutMonster" />
+            android:src="@drawable/pizza_monster"
+            style="@style/AppTheme.PizzaGuy" />
 
         <TextView
             style="@style/AppTheme.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/message_no_exercises"
+            android:text="@string/message_no_reviews"
             android:textColor="@color/greyDisabled" />
 
     </LinearLayout>

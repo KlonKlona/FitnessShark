@@ -69,7 +69,7 @@
     <string name="pref_duration_60">60 min</string>
     <string name="pref_duration_75">75 min </string>
     <string name="pref_duration_90">90 min</string>
-    <string name="pref_duration_long">Limitless</string>
+    <string name="pref_duration_long">120 min</string>
 
     <string name="pref_days_2">2 Times a Week</string>
     <string name="pref_days_3">3 Times a Week</string>
@@ -192,4 +192,9 @@
     <string name="title_profile">Profile</string>
     <string name="logout">Logout</string>
     <string name="generate_workout_plan">Generate Workout Plan</string>
+    <string name="profile_max_deadlift">Your max deadlift [kg]</string>
+    <string name="profile_max_squat">Your max squat [kg]</string>
+    <string name="profile_max_benech">Your max bench press [kg]</string>
+    <string name="profile_max_press">Your max overhead press [kg]</string>
+    <string name="message_no_exercises">Add new exercises to workout</string>
 </resources>

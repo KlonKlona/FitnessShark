@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -62,6 +66,15 @@ dependencies {
     // Third-party libraries
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation 'org.javatuples:javatuples:1.2'
+//
+//    implementation group: 'net.sf.json-lib', name: 'json-lib', version: '2.4', classifier: 'jdk15'
+//    implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
+//    implementation group: 'com.github.panga', name: 'java-beans-lite', version: '1.0.2'
+//    implementation group: 'commons-lang', name: 'commons-lang', version: '2.3'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
