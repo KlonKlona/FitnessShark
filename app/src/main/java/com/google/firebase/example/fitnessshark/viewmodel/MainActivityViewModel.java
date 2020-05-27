@@ -25,10 +25,12 @@ public class MainActivityViewModel extends ViewModel {
 
     private boolean mIsSigningIn;
     private boolean mIsProfileCompleted;
+    private boolean mIsExerciseDatabaseFetched;
 
     public MainActivityViewModel() {
         mIsSigningIn = false;
         mIsProfileCompleted = false;
+        mIsExerciseDatabaseFetched = false;
     }
 
     public boolean getIsSigningIn() {
@@ -45,5 +47,13 @@ public class MainActivityViewModel extends ViewModel {
 
     public void setIsProfileComplete(boolean mIsProfileCompleted) {
         this.mIsProfileCompleted = mIsProfileCompleted;
+    }
+
+    public boolean getIsExerciseDatabaseFetched() {
+        return mIsExerciseDatabaseFetched;
+    }
+
+    public void setIsExerciseDatabaseFetched(boolean mIsExerciseDatabaseFetched) {
+        this.mIsExerciseDatabaseFetched = mIsExerciseDatabaseFetched;
     }
 }
