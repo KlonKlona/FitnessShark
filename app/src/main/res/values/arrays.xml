@@ -42,4 +42,22 @@
         <item>@string/pref_days_5</item>
         <item>@string/pref_days_6</item>
     </string-array>
+
+    <string-array name="exercisecategorylist">
+        <item>@string/category_arms</item>
+        <item>@string/category_legs</item>
+        <item>@string/category_chest</item>
+        <item>@string/category_back</item>
+        <item>@string/category_shoulders</item>
+        <item>@string/category_abs</item>
+    </string-array>
+
+    <string-array name="exerciseequipmentlist">
+        <item>@string/equipment_barbell</item>
+        <item>@string/equipment_dumbbell</item>
+        <item>@string/equipment_pullupbar</item>
+        <item>@string/equipment_none</item>
+        <item>@string/equipment_kettlebell</item>
+    </string-array>
+
 </resources>

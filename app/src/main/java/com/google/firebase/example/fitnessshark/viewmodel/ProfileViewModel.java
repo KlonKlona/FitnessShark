@@ -9,9 +9,14 @@ import com.google.firebase.example.fitnessshark.model.UserProfile;
 public class ProfileViewModel extends ViewModel {
     private MutableLiveData<UserProfile> userProfile;
     private boolean mDoesProfileExists;
+    private boolean mAreExercisesFetched;
+    private boolean mIsWorkoutGenerated;
+
 
     public ProfileViewModel() {
-        mDoesProfileExists = false;
+        this.mAreExercisesFetched = false;
+        this.mDoesProfileExists = false;
+        this.mIsWorkoutGenerated = false;
     }
 
     public boolean getDoesProfileExists() {
@@ -20,6 +25,22 @@ public class ProfileViewModel extends ViewModel {
 
     public void setDoesProfileExists(boolean mDoesProfileExists) {
         this.mDoesProfileExists = mDoesProfileExists;
+    }
+
+    public boolean getAreExercisesFetched() {
+        return mAreExercisesFetched;
+    }
+
+    public void setAreExercisesFetched(boolean mAreExercisesFetched) {
+        this.mAreExercisesFetched = mAreExercisesFetched;
+    }
+
+    public boolean getIsWorkoutGenerated() {
+        return mIsWorkoutGenerated;
+    }
+
+    public void setIsWorkoutGenerated(boolean isWorkoutGenerated) {
+        this.mIsWorkoutGenerated = isWorkoutGenerated;
     }
 
     public LiveData<UserProfile> getUserProfile() {

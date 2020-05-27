@@ -13,12 +13,43 @@ public class Exercise {
     private Category category;
     private List<Equipment> equipment;
     private String description;
+    private int sets;
+    private int reps;
+    private double weight;
 
-    public Exercise(Category category, List<Equipment> equipment, String name, String description) {
+    public int getSets() {
+        return sets;
+    }
+
+    public void setSets(int sets) {
+        this.sets = sets;
+    }
+
+    public int getReps() {
+        return reps;
+    }
+
+    public void setReps(int reps) {
+        this.reps = reps;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public Exercise(String name, String description, Category category, List<Equipment> equipment,
+                    int sets, int reps, double weight) {
         this.category = category;
         this.equipment = equipment;
         this.name = name;
         this.description = description;
+        this.sets = sets;
+        this.reps = reps;
+        this.weight = weight;
     }
 
     public Exercise() {

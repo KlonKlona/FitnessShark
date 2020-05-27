@@ -18,42 +18,43 @@
     <TextView
         android:id="@+id/workout_item_name"
         style="@style/AppTheme.Subheader"
+        android:maxLength="30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/workout_item_image"
+        android:layout_alignTop="@id/workout_item_image"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="-2dp"
-        android:layout_toLeftOf="@+id/workout_item_duration"
-        android:layout_toRightOf="@+id/workout_item_image"
+        android:layout_toLeftOf="@id/workout_item_duration"
+        android:layout_toRightOf="@id/workout_item_image"
         android:ellipsize="end"
         android:maxLines="1"
         tools:text="Full Body Workout"
         android:layout_marginStart="8dp"
-        android:layout_toEndOf="@+id/workout_item_image"
-        android:layout_toStartOf="@+id/workout_item_duration" />
+        android:layout_toEndOf="@id/workout_item_image"
+        android:layout_toStartOf="@id/workout_item_duration" />
 
     <TextView
         android:id="@+id/workout_item_exercises"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workout_item_name"
-        android:layout_alignStart="@+id/workout_item_name"
-        android:layout_alignLeft="@+id/workout_item_name"
+        android:layout_below="@id/workout_item_name"
+        android:layout_alignStart="@id/workout_item_name"
+        android:layout_alignLeft="@id/workout_item_name"
         tools:text="4 Exercises" />
 
     <TextView
         android:id="@+id/workout_item_sets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/workout_item_exercises"
-        android:layout_alignTop="@+id/workout_item_exercises"
+        android:layout_alignBottom="@id/workout_item_exercises"
+        android:layout_alignTop="@id/workout_item_exercises"
         android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/workout_item_exercises"
+        android:layout_toRightOf="@id/workout_item_exercises"
         android:gravity="center_vertical"
         android:textColor="@color/greyDisabled"
         tools:text="(Total 16 sets)"
-        android:layout_toEndOf="@+id/workout_item_exercises"
+        android:layout_toEndOf="@id/workout_item_exercises"
         android:layout_marginStart="4dp" />
 
     <TextView
@@ -61,27 +62,27 @@
         style="@style/AppTheme.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/workout_item_name"
-        android:layout_below="@+id/workout_item_exercises"
+        android:layout_alignLeft="@id/workout_item_name"
+        android:layout_below="@id/workout_item_exercises"
         android:textColor="@color/greySecondary"
         tools:text="Hyperthrophy" />
 
     <TextView
         android:id="@+id/workout_item_divider"
         style="@style/AppTheme.TextDivider"
-        android:layout_alignTop="@+id/workout_item_category"
-        android:layout_toRightOf="@+id/workout_item_category"
+        android:layout_alignTop="@id/workout_item_category"
+        android:layout_toRightOf="@id/workout_item_category"
         android:text="@string/divider_bullet" />
 
     <TextView
-        android:id="@+id/restaurant_item_city"
+        android:id="@+id/workout_item_difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/workout_item_category"
-        android:layout_toRightOf="@+id/workout_item_divider"
+        android:layout_alignTop="@id/workout_item_category"
+        android:layout_toRightOf="@id/workout_item_divider"
         android:textColor="@color/greySecondary"
         tools:text="Intermediate"
-        android:layout_toEndOf="@+id/workout_item_divider" />
+        android:layout_toEndOf="@id/workout_item_divider" />
 
     <TextView
         android:id="@+id/workout_item_duration"

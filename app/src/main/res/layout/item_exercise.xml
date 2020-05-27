@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:id="@+id/exercise_item_name"
+        style="@style/AppTheme.Subheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="-2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Decline Barbell Bench Press"
+        android:layout_marginStart="8dp" />
+
+    <TextView
+        android:id="@+id/exercise_item_sets"
+        style="@style/AppTheme.Subheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/exercise_item_name"
+        android:layout_alignStart="@+id/exercise_item_name"
+        android:layout_alignLeft="@+id/exercise_item_name"
+        tools:text="4 Sets" />
+
+    <TextView
+        android:id="@+id/exercise_item_reps"
+        style="@style/AppTheme.Subheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/exercise_item_sets"
+        android:layout_alignTop="@+id/exercise_item_sets"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/exercise_item_sets"
+        android:gravity="center_vertical"
+        tools:text="of 10 Repetitions"
+        android:layout_toEndOf="@+id/exercise_item_sets"
+        android:layout_marginStart="4dp" />
+
+    <TextView
+        android:id="@+id/exercise_item_weight"
+        style="@style/AppTheme.Subheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/exercise_item_reps"
+        android:layout_alignTop="@+id/exercise_item_reps"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/exercise_item_reps"
+        android:gravity="center_vertical"
+        tools:text="with 60 kg"
+        android:layout_toEndOf="@+id/exercise_item_reps"
+        android:layout_marginStart="4dp" />
+
+    <TextView
+        android:id="@+id/exercise_item_category"
+        style="@style/AppTheme.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/greySecondary"
+        tools:text="CHEST"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/exercise_item_description"
+        style="@style/AppTheme.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/exercise_item_sets"
+        android:layout_alignStart="@+id/exercise_item_name"
+        android:layout_alignLeft="@+id/exercise_item_sets"
+        tools:text="Lay down on a decline bench, the bar should be directly above your eyes, the knees are somewhat angled and the feet are firmly on the floor. Concentrate, breath deeply and grab the bar more than shoulder wide. Bring it slowly down till it briefly touches your chest at the height of your nipples. Push the bar up." />
+
+</RelativeLayout>

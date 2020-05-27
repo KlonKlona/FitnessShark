@@ -19,10 +19,13 @@ import android.content.Context;
 
 import com.google.firebase.example.fitnessshark.R;
 import com.google.firebase.example.fitnessshark.model.DifficultyLevel;
+import com.google.firebase.example.fitnessshark.model.Workout;
 import com.google.firebase.example.fitnessshark.model.WorkoutCategory;
 import com.google.firebase.example.fitnessshark.model.WorkoutPlan;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -30,7 +33,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Utilities for Restaurants.
+ * Utilities for Workout Plans.
  */
 public class WorkoutPlanUtil {
 
@@ -39,7 +42,7 @@ public class WorkoutPlanUtil {
     private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(2, 4, 60,
             TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
-    private static final String WORKOUT_PLAN_URL_FMT = "https://storage.googleapis.com/firestorequickstarts.appspot.com/food_%d.png";
+    private static final String WORKOUT_PLAN_URL_FMT = "http://clipart-library.com/images_k/workout-silhouette-png/workout-silhouette-png-%d.png";
 
     private static final int MAX_IMAGE_NUM = 22;
 
@@ -60,14 +63,6 @@ public class WorkoutPlanUtil {
         WorkoutPlan workoutPlan = new WorkoutPlan();
         Random random = new Random();
 
-        // Cities (first element is 'Any')
-        String[] cities = context.getResources().getStringArray(R.array.cities);
-        cities = Arrays.copyOfRange(cities, 1, cities.length);
-
-        // Categories (first element is 'Any')
-        String[] categories = context.getResources().getStringArray(R.array.categories);
-        categories = Arrays.copyOfRange(categories, 1, categories.length);
-
         WorkoutCategory[] workoutCategories = new WorkoutCategory[]{WorkoutCategory.STRENGTH,
                 WorkoutCategory.POWER, WorkoutCategory.HYPERTROPHY, WorkoutCategory.ENDURANCE};
 
@@ -87,14 +82,11 @@ public class WorkoutPlanUtil {
         workoutPlan.setPhoto(getRandomImageUrl(random));
         workoutPlan.setAvgRating(getRandomRating(random));
         workoutPlan.setNumRatings(random.nextInt(20));
+//        workoutPlan.setWorkouts();
 
         return workoutPlan;
     }
 
-
-    /**
-     * Get a random image.
-     */
     private static String getRandomImageUrl(Random random) {
         // Integer between 1 and MAX_IMAGE_NUM (inclusive)
         int id = random.nextInt(MAX_IMAGE_NUM) + 1;
@@ -131,4 +123,13 @@ public class WorkoutPlanUtil {
         return array[ind];
     }
 
+    private static List<Workout> setRandomWorkout(WorkoutPlan workoutPlan, Random random) {
+        ArrayList<Workout> workouts = new ArrayList<Workout>();
+
+        return workouts;
+    }
+
+    public static void setWorkouts(WorkoutPlan workoutPlan) {
+
+    }
 }

@@ -3,10 +3,7 @@ package com.google.firebase.example.fitnessshark.model;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.type.DayOfWeek;
 
-import org.javatuples.Triplet;
-
 import java.util.ArrayList;
-import java.util.Map;
 
 @IgnoreExtraProperties
 public class Workout {
@@ -14,17 +11,14 @@ public class Workout {
     public static final String FIELD_DIFFICULTY = "difficulty";
     public static final String FIELD_CATEGORY = "category";
     public static final String FIELD_DURATION = "duration";
-    public static final String FIELD_DAYS_WEEK = "daysWeek";
-    public static final String FIELD_WORKOUTS = "workouts";
-    public static final String FIELD_POPULARITY = "numRatings";
-    public static final String FIELD_AVG_RATING = "avgRating";
+    public static final String FIELD_EXERCISES = "exercises";
 
-    public Workout(String name, Map<Exercise, Triplet<Integer, Integer, Double>> exercises,
-                   DayOfWeek dayOfWeek, DifficultyLevel difficulty, WorkoutCategory category,
+    public Workout(String name, ArrayList<Exercise> exercises,
+                   ArrayList<DayOfWeek> daysOfWeek, DifficultyLevel difficulty, WorkoutCategory category,
                    int sets, int numExercises, int duration, String photo) {
         this.name = name;
         this.exercises = exercises;
-        this.dayOfWeek = dayOfWeek;
+        this.daysOfWeek = daysOfWeek;
         this.difficulty = difficulty;
         this.category = category;
         this.sets = sets;
@@ -35,24 +29,30 @@ public class Workout {
 
     public Workout() {}
 
-    public Map<Exercise, Triplet<Integer, Integer, Double>> getExercises() {
+    public Workout(String name) {
+        this.name = name;
+        this.exercises = new ArrayList<Exercise>();
+        this.daysOfWeek = new ArrayList<DayOfWeek>();
+    }
+
+    public ArrayList<Exercise> getExercises() {
         return exercises;
     }
 
-    public void setExercises(Map<Exercise, Triplet<Integer, Integer, Double>> exercises) {
+    public void setExercises(ArrayList<Exercise> exerciseArrayList) {
         this.exercises = exercises;
     }
 
-    public void addExercise(Map<Exercise, Triplet<Integer, Integer, Double>> exerciseTripletMap) {
-        this.exercises = exerciseTripletMap;
+    public void addExercise(Exercise exercise) {
+        this.exercises.add(exercise);
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+    public ArrayList<DayOfWeek> getDaysOfWeek() {
+        return daysOfWeek;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
+    public void setDaysOfWeek(ArrayList<DayOfWeek> daysOfWeek) {
+        this.daysOfWeek = daysOfWeek;
     }
 
     public String getName() {
@@ -69,14 +69,6 @@ public class Workout {
 
     public void setSets(int sets) {
         this.sets = sets;
-    }
-
-    public int getNumExercises() {
-        return numExercises;
-    }
-
-    public void setNumExercises(int numExercises) {
-        this.numExercises = numExercises;
     }
 
     public String getPhoto() {
@@ -111,10 +103,17 @@ public class Workout {
         this.duration = duration;
     }
 
+    public int getNumExercises() {
+        return numExercises;
+    }
+
+    public void setNumExercises(int numExercises) {
+        this.numExercises = numExercises;
+    }
 
     private String name;
-    private Map<Exercise, Triplet<Integer, Integer, Double>> exercises;
-    private DayOfWeek dayOfWeek;
+    private ArrayList<Exercise> exercises;
+    private ArrayList<DayOfWeek> daysOfWeek;
     private DifficultyLevel difficulty;
     private WorkoutCategory category;
     private int sets;

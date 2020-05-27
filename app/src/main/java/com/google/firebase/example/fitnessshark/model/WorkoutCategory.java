@@ -12,10 +12,4 @@ public enum WorkoutCategory {
     private WorkoutCategory(int _workoutCategoryCode) {
         this.workoutCategoryCode = _workoutCategoryCode;
     }
-
-    // Overriding toString() method to return "" instead of "EMPTY"
-    @Override
-    public String toString(){
-        return this.toString();
-    }
 }
