@@ -27,7 +27,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.example.fitnessshark.R;
+import com.google.firebase.example.fitnessshark.model.Exercise;
 import com.google.firebase.example.fitnessshark.model.Restaurant;
+import com.google.firebase.example.fitnessshark.model.Workout;
 import com.google.firebase.example.fitnessshark.util.RestaurantUtil;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
@@ -35,19 +37,19 @@ import com.google.firebase.firestore.Query;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
- * RecyclerView adapter for a list of Restaurants.
+ * RecyclerView adapter for a list of Workouts.
  */
-public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHolder> {
+public class WorkoutAdapter extends FirestoreAdapter<WorkoutAdapter.ViewHolder> {
 
-    public interface OnRestaurantSelectedListener {
+    public interface OnWorkoutSelectedListener {
 
-        void onRestaurantSelected(DocumentSnapshot restaurant);
+        void onWorkoutSelected(DocumentSnapshot workout);
 
     }
 
-    private OnRestaurantSelectedListener mListener;
+    private OnWorkoutSelectedListener mListener;
 
-    public RestaurantAdapter(Query query, OnRestaurantSelectedListener listener) {
+    public WorkoutAdapter(Query query, OnWorkoutSelectedListener listener) {
         super(query);
         mListener = listener;
     }
@@ -56,7 +58,7 @@ public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new ViewHolder(inflater.inflate(R.layout.item_restaurant, parent, false));
+        return new ViewHolder(inflater.inflate(R.layout.item_workout, parent, false));
     }
 
     @Override
@@ -68,49 +70,45 @@ public class RestaurantAdapter extends FirestoreAdapter<RestaurantAdapter.ViewHo
 
         ImageView imageView;
         TextView nameView;
-        MaterialRatingBar ratingBar;
-        TextView numRatingsView;
-        TextView priceView;
+        TextView numExercisesView;
+        TextView numSetsView;
         TextView categoryView;
-        TextView cityView;
+        TextView difficultyView;
+        TextView durationView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.restaurant_item_image);
-            nameView = itemView.findViewById(R.id.restaurant_item_name);
-            ratingBar = itemView.findViewById(R.id.restaurant_item_rating);
-            numRatingsView = itemView.findViewById(R.id.restaurant_item_num_ratings);
-            priceView = itemView.findViewById(R.id.restaurant_item_price);
-            categoryView = itemView.findViewById(R.id.restaurant_item_category);
-            cityView = itemView.findViewById(R.id.restaurant_item_city);
+            imageView = itemView.findViewById(R.id.workout_item_image);
+            nameView = itemView.findViewById(R.id.workout_item_name);
+            numExercisesView = itemView.findViewById(R.id.workout_item_exercises);
+            numSetsView = itemView.findViewById(R.id.workout_item_sets);
+            categoryView = itemView.findViewById(R.id.workout_item_category);
+            difficultyView = itemView.findViewById(R.id.workout_item_difficulty);
+            durationView = itemView.findViewById(R.id.workout_item_duration);
         }
 
         public void bind(final DocumentSnapshot snapshot,
-                         final OnRestaurantSelectedListener listener) {
+                         final OnWorkoutSelectedListener listener) {
 
-            Restaurant restaurant = snapshot.toObject(Restaurant.class);
+            Workout workout = snapshot.toObject(Workout.class);
             Resources resources = itemView.getResources();
 
             // Load image
             Glide.with(imageView.getContext())
-                    .load(restaurant.getPhoto())
+                    .load(workout.getPhoto())
                     .into(imageView);
 
-            nameView.setText(restaurant.getName());
-            ratingBar.setRating((float) restaurant.getAvgRating());
-            cityView.setText(restaurant.getCity());
-            categoryView.setText(restaurant.getCategory());
-            numRatingsView.setText(resources.getString(R.string.fmt_num_ratings,
-                    restaurant.getNumRatings()));
-            priceView.setText(RestaurantUtil.getPriceString(restaurant));
+            nameView.setText(workout.getName());
+            numExercisesView.setText(workout.getNumExercises() + " Exercises");
+            numSetsView.setText("Total " + workout.getSets() + " sets");
+            categoryView.setText(workout.getCategory().toString());
+            difficultyView.setText(workout.getDifficulty().toString());
+            durationView.setText(workout.getDuration() + " min");
 
             // Click listener
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (listener != null) {
-                        listener.onRestaurantSelected(snapshot);
-                    }
+            itemView.setOnClickListener(view -> {
+                if (listener != null) {
+                    listener.onWorkoutSelected(snapshot);
                 }
             });
         }

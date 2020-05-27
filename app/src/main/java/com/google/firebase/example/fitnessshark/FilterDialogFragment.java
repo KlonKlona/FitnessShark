@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.firebase.example.fitnessshark.model.Restaurant;
+import com.google.firebase.example.fitnessshark.model.Workout;
 import com.google.firebase.firestore.Query;
 
 /**
@@ -47,7 +48,6 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
     private Spinner mCategorySpinner;
     private Spinner mCitySpinner;
     private Spinner mSortSpinner;
-    private Spinner mPriceSpinner;
 
     private FilterListener mFilterListener;
 
@@ -61,7 +61,6 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
         mCategorySpinner = mRootView.findViewById(R.id.spinner_category);
         mCitySpinner = mRootView.findViewById(R.id.spinner_city);
         mSortSpinner = mRootView.findViewById(R.id.spinner_sort);
-        mPriceSpinner = mRootView.findViewById(R.id.spinner_price);
 
         mRootView.findViewById(R.id.button_search).setOnClickListener(this);
         mRootView.findViewById(R.id.button_cancel).setOnClickListener(this);
@@ -130,28 +129,15 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
         }
     }
 
-    private int getSelectedPrice() {
-        String selected = (String) mPriceSpinner.getSelectedItem();
-        if (selected.equals(getString(R.string.price_1))) {
-            return 1;
-        } else if (selected.equals(getString(R.string.price_2))) {
-            return 2;
-        } else if (selected.equals(getString(R.string.price_3))) {
-            return 3;
-        } else {
-            return -1;
-        }
-    }
-
     @Nullable
     private String getSelectedSortBy() {
         String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_by_rating).equals(selected)) {
-            return Restaurant.FIELD_AVG_RATING;
-        } if (getString(R.string.sort_by_price).equals(selected)) {
-            return Restaurant.FIELD_PRICE;
-        } if (getString(R.string.sort_by_popularity).equals(selected)) {
-            return Restaurant.FIELD_POPULARITY;
+        if (getString(R.string.sort_by_duration).equals(selected)) {
+            return Workout.FIELD_DURATION;
+        } if (getString(R.string.sort_by_difficulty).equals(selected)) {
+            return Workout.FIELD_DIFFICULTY;
+        } if (getString(R.string.sort_by_exercises).equals(selected)) {
+            return Workout.FIELD_EXERCISES;
         }
 
         return null;
@@ -160,11 +146,11 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
     @Nullable
     private Query.Direction getSortDirection() {
         String selected = (String) mSortSpinner.getSelectedItem();
-        if (getString(R.string.sort_by_rating).equals(selected)) {
+        if (getString(R.string.sort_by_duration).equals(selected)) {
             return Query.Direction.DESCENDING;
-        } if (getString(R.string.sort_by_price).equals(selected)) {
+        } if (getString(R.string.sort_by_difficulty).equals(selected)) {
             return Query.Direction.ASCENDING;
-        } if (getString(R.string.sort_by_popularity).equals(selected)) {
+        } if (getString(R.string.sort_by_exercises).equals(selected)) {
             return Query.Direction.DESCENDING;
         }
 
@@ -175,7 +161,6 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
         if (mRootView != null) {
             mCategorySpinner.setSelection(0);
             mCitySpinner.setSelection(0);
-            mPriceSpinner.setSelection(0);
             mSortSpinner.setSelection(0);
         }
     }
@@ -186,7 +171,6 @@ public class FilterDialogFragment extends DialogFragment implements View.OnClick
         if (mRootView != null) {
             filters.setCategory(getSelectedCategory());
             filters.setDifficulty(getSelectedCity());
-            filters.setDuration(getSelectedPrice());
             filters.setSortBy(getSelectedSortBy());
             filters.setSortDirection(getSortDirection());
         }

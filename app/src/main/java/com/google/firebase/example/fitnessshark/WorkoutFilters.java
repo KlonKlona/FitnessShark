@@ -19,6 +19,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.firebase.example.fitnessshark.model.DifficultyLevel;
+import com.google.firebase.example.fitnessshark.model.Workout;
 import com.google.firebase.example.fitnessshark.model.WorkoutCategory;
 import com.google.firebase.example.fitnessshark.model.WorkoutPlan;
 import com.google.firebase.firestore.Query;
@@ -39,7 +40,7 @@ public class WorkoutFilters {
 
     public static WorkoutFilters getDefault() {
         WorkoutFilters filters = new WorkoutFilters();
-        filters.setSortBy(WorkoutPlan.FIELD_AVG_RATING);
+        filters.setSortBy(Workout.FIELD_DIFFICULTY);
         filters.setSortDirection(Query.Direction.DESCENDING);
 
         return filters;
@@ -123,17 +124,17 @@ public class WorkoutFilters {
 
         if (category != null) {
             desc.append("<b>");
-            desc.append(category);
+            desc.append(category.toString());
             desc.append("</b>");
         }
 
         if (category != null && difficulty != null) {
-            desc.append(" in ");
+            desc.append(category.toString() + " in " + difficulty.toString());
         }
 
         if (difficulty != null) {
             desc.append("<b>");
-            desc.append(difficulty);
+            desc.append(difficulty.toString());
             desc.append("</b>");
         }
 
@@ -155,12 +156,12 @@ public class WorkoutFilters {
     }
 
     public String getOrderDescription(Context context) {
-        if (WorkoutPlan.FIELD_DIFFICULTY.equals(sortBy)) {
+        if (Workout.FIELD_DIFFICULTY.equals(sortBy)) {
             return context.getString(R.string.sorted_by_difficulty);
-        } else if (WorkoutPlan.FIELD_POPULARITY.equals(sortBy)) {
-            return context.getString(R.string.sorted_by_popularity);
+        } else if (Workout.FIELD_CATEGORY.equals(sortBy)) {
+            return context.getString(R.string.sorted_by_category);
         } else {
-            return context.getString(R.string.sorted_by_rating);
+            return context.getString(R.string.sorted_by_duration);
         }
     }
 }

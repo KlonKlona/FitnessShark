@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.example.fitnessshark.adapter.RestaurantAdapter;
+import com.google.firebase.example.fitnessshark.adapter.WorkoutAdapter;
 import com.google.firebase.example.fitnessshark.model.WorkoutPlan;
 import com.google.firebase.example.fitnessshark.util.WorkoutPlanUtil;
 import com.google.firebase.firestore.CollectionReference;
@@ -41,7 +41,7 @@ import com.google.firebase.example.fitnessshark.viewmodel.HomeViewModel;
 public class HomeFragment extends Fragment implements
         View.OnClickListener,
         FilterDialogFragment.FilterListener,
-        RestaurantAdapter.OnRestaurantSelectedListener {
+        WorkoutAdapter.OnWorkoutSelectedListener {
 
     private static final String TAG = "HomeFragment";
 
@@ -52,14 +52,14 @@ public class HomeFragment extends Fragment implements
     private ImageView mButtonClearFilter;
     private TextView mCurrentSearchView;
     private TextView mCurrentSortByView;
-    private RecyclerView mRestaurantsRecycler;
+    private RecyclerView mWorkoutRecycler;
     private ViewGroup mEmptyView;
 
     private FirebaseFirestore mFirestore;
     private Query mQuery;
 
     private FilterDialogFragment mFilterDialog;
-    private RestaurantAdapter mAdapter;
+    private WorkoutAdapter mAdapter;
 
     private HomeViewModel mViewModel;
 
@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment implements
 
         mCurrentSearchView = v.findViewById(R.id.text_current_search);
         mCurrentSortByView = v.findViewById(R.id.text_current_sort_by);
-        mRestaurantsRecycler = v.findViewById(R.id.recycler_restaurants);
+        mWorkoutRecycler = v.findViewById(R.id.recycler_workouts);
         mEmptyView = v.findViewById(R.id.view_empty);
 
         mFilterBar = v.findViewById(R.id.filter_bar);
@@ -110,8 +110,8 @@ public class HomeFragment extends Fragment implements
     private void initFirestore() {
     mFirestore = FirebaseFirestore.getInstance();
 
-    mQuery = mFirestore.collection("workoutPlans")
-            .orderBy("avgRating", Query.Direction.DESCENDING)
+    mQuery = mFirestore.collection("workouts")
+            .orderBy("name", Query.Direction.DESCENDING)
             .limit(LIMIT);
     }
 
@@ -120,16 +120,16 @@ public class HomeFragment extends Fragment implements
             Log.w(TAG, "No query, not initializing RecyclerView");
         }
 
-        mAdapter = new RestaurantAdapter(mQuery, this) {
+        mAdapter = new WorkoutAdapter(mQuery, this) {
 
             @Override
             protected void onDataChanged() {
                 // Show/hide content if the query returns empty.
                 if (getItemCount() == 0) {
-                    mRestaurantsRecycler.setVisibility(View.GONE);
+                    mWorkoutRecycler.setVisibility(View.GONE);
                     mEmptyView.setVisibility(View.VISIBLE);
                 } else {
-                    mRestaurantsRecycler.setVisibility(View.VISIBLE);
+                    mWorkoutRecycler.setVisibility(View.VISIBLE);
                     mEmptyView.setVisibility(View.GONE);
                 }
             }
@@ -142,8 +142,8 @@ public class HomeFragment extends Fragment implements
             }
         };
 
-         mRestaurantsRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-         mRestaurantsRecycler.setAdapter(mAdapter);
+         mWorkoutRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+         mWorkoutRecycler.setAdapter(mAdapter);
     }
 
     @Override
@@ -167,23 +167,10 @@ public class HomeFragment extends Fragment implements
         }
     }
 
-    private void onAddItemsClicked() {
-        // Get a reference to the restaurants collection
-        CollectionReference workoutPlans = mFirestore.collection("workoutPlans");
-
-        for (int i = 0; i < 10; i++) {
-            // Get a random Restaurant POJO
-            WorkoutPlan workoutPlan = WorkoutPlanUtil.getRandom(this.getActivity());
-
-            // Add a new document to the restaurants collection
-            workoutPlans.add(workoutPlan);
-        }
-    }
-
     @Override
     public void onFilter(WorkoutFilters filters) {
         // Construct query basic query
-        Query query = mFirestore.collection("workoutPlans");
+        Query query = mFirestore.collection("workouts");
 
         // Category (equality filter)
         if (filters.hasCategory()) {
@@ -220,20 +207,6 @@ public class HomeFragment extends Fragment implements
         mViewModel.setFilters(filters);
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu_add_items:
-//                onAddItemsClicked();
-//                break;
-//            case R.id.menu_sign_out:
-//                AuthUI.getInstance().signOut(this.getActivity());
-//                startSignIn();
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -257,10 +230,10 @@ public class HomeFragment extends Fragment implements
     }
 
     @Override
-    public void onRestaurantSelected(DocumentSnapshot workoutPlan) {
+    public void onWorkoutSelected(DocumentSnapshot workoutPlan) {
         // Go to the details page for the selected restaurant
-        Intent intent = new Intent(this.getContext(), WorkoutPlanDetailActivity.class);
-        intent.putExtra(WorkoutPlanDetailActivity.KEY_WORKOUT_PLAN_ID, workoutPlan.getId());
+        Intent intent = new Intent(this.getContext(), WorkoutDetailActivity.class);
+        intent.putExtra(WorkoutDetailActivity.KEY_WORKOUT_PLAN_ID, workoutPlan.getId());
 
         startActivity(intent);
     }

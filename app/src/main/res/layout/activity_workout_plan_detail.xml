@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E0E0E0"
-    tools:context="com.google.firebase.example.fitnessshark.WorkoutPlanDetailActivity">
+    tools:context="com.google.firebase.example.fitnessshark.WorkoutDetailActivity">
 
     <RelativeLayout
         android:id="@+id/workout_plan_top_card"
@@ -31,17 +31,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
-            android:layout_alignLeft="@+id/workout_plan_name"
+            android:layout_alignLeft="@id/workout_plan_name"
             android:layout_marginTop="16dp"
             app:srcCompat="@drawable/ic_close_white_24px"
-            android:layout_alignStart="@+id/workout_plan_name" />
+            android:layout_alignStart="@id/workout_plan_name" />
 
         <TextView
             android:id="@+id/workout_plan_name"
             style="@style/AppTheme.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/workout_plan_exercises"
+            android:maxLength="20"
+            android:layout_above="@id/workout_plan_exercises"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@android:color/white"
@@ -54,77 +55,77 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_above="@+id/workout_plan_category"
-            android:layout_alignLeft="@+id/workout_plan_name"
+            android:layout_above="@id/workout_plan_category"
+            android:layout_alignLeft="@id/workout_plan_name"
             android:gravity="center"
             android:layout_marginStart="8dp"
             android:textColor="@android:color/white"
             tools:text="4 Exercises"
-            android:layout_alignStart="@+id/workout_plan_name" />
+            android:layout_alignStart="@id/workout_plan_name" />
 
         <TextView
             android:id="@+id/workout_plan_days_week"
             style="@style/AppTheme.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/workout_plan_name"
-            android:layout_alignTop="@+id/workout_plan_name"
+            android:layout_alignBottom="@id/workout_plan_name"
+            android:layout_alignTop="@id/workout_plan_name"
             android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/workout_plan_name"
+            android:layout_toRightOf="@id/workout_plan_name"
             android:gravity="center"
             android:textColor="@android:color/white"
             tools:text="3 days / week"
             android:layout_marginStart="4dp"
-            android:layout_toEndOf="@+id/workout_plan_name" />
+            android:layout_toEndOf="@id/workout_plan_name" />
 
         <TextView
             android:id="@+id/workout_plan_sets"
             style="@style/AppTheme.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/workout_plan_exercises"
-            android:layout_alignTop="@+id/workout_plan_exercises"
+            android:layout_alignBottom="@id/workout_plan_exercises"
+            android:layout_alignTop="@id/workout_plan_exercises"
             android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/workout_plan_exercises"
+            android:layout_toRightOf="@id/workout_plan_exercises"
             android:gravity="center"
             android:textColor="@android:color/white"
             tools:text="(Total 16 sets)"
             android:layout_marginStart="4dp"
-            android:layout_toEndOf="@+id/workout_plan_exercises" />
+            android:layout_toEndOf="@id/workout_plan_exercises" />
 
         <TextView
             android:id="@+id/workout_plan_category"
             style="@style/AppTheme.Subheader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/workout_plan_image"
-            android:layout_alignLeft="@+id/workout_plan_name"
+            android:layout_alignBottom="@id/workout_plan_image"
+            android:layout_alignLeft="@id/workout_plan_name"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@android:color/white"
             tools:text="Hyperthrophy"
-            android:layout_alignStart="@+id/workout_plan_name" />
+            android:layout_alignStart="@id/workout_plan_name" />
 
         <TextView
             android:id="@+id/workout_plan_divider"
             style="@style/AppTheme.TextDivider"
-            android:layout_alignTop="@+id/workout_plan_category"
-            android:layout_toRightOf="@+id/workout_plan_category"
+            android:layout_alignTop="@id/workout_plan_category"
+            android:layout_toRightOf="@id/workout_plan_category"
             android:text="@string/divider_bullet"
             android:textColor="@android:color/white"
-            android:layout_toEndOf="@+id/workout_plan_category" />
+            android:layout_toEndOf="@id/workout_plan_category" />
 
         <TextView
             android:id="@+id/workout_plan_difficulty"
             style="@style/AppTheme.Subheader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/workout_plan_category"
-            android:layout_below="@+id/workout_plan_category"
+            android:layout_alignTop="@id/workout_plan_category"
+            android:layout_below="@id/workout_plan_category"
             android:layout_toRightOf="@+id/workout_plan_divider"
             android:textColor="@android:color/white"
             tools:text="Intermediate"
-            android:layout_toEndOf="@+id/workout_plan_divider" />
+            android:layout_toEndOf="@id/workout_plan_divider" />
 
         <TextView
             android:id="@+id/workout_plan_duration"
@@ -132,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/workout_plan_name"
+            android:layout_alignTop="@id/workout_plan_name"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:textColor="@android:color/white"
@@ -144,10 +145,10 @@
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_show_rating_dialog"
+        android:id="@+id/fab_show_exercise_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/workout_plan_top_card"
+        android:layout_alignBottom="@id/workout_plan_top_card"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="-28dp"
         android:layout_marginRight="16dp"
@@ -160,13 +161,13 @@
         android:id="@+id/recycler_exercises"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workout_plan_top_card"
+        android:layout_below="@id/workout_plan_top_card"
         android:background="@android:color/transparent"
         android:clipToPadding="false"
         android:paddingBottom="16dp"
         android:paddingTop="28dp"
         android:visibility="gone"
-        tools:listitem="@layout/item_rating" />
+        tools:listitem="@layout/item_exercise" />
 
     <!-- View for empty exercises -->
     <LinearLayout
@@ -174,7 +175,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/workout_plan_top_card"
+        android:layout_below="@id/workout_plan_top_card"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="vertical"

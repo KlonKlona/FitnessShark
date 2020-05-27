@@ -34,10 +34,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.example.fitnessshark.adapter.RatingAdapter;
-import com.google.firebase.example.fitnessshark.model.Rating;
-import com.google.firebase.example.fitnessshark.model.Restaurant;
-import com.google.firebase.example.fitnessshark.model.WorkoutPlan;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.example.fitnessshark.adapter.ExerciseAdapter;
+import com.google.firebase.example.fitnessshark.model.Exercise;
+import com.google.firebase.example.fitnessshark.model.Workout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -46,16 +47,16 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
+import com.google.firebase.firestore.core.OrderBy;
 
-import me.zhanghai.android.materialratingbar.MaterialRatingBar;
-
-public class WorkoutPlanDetailActivity extends AppCompatActivity implements
+public class WorkoutDetailActivity extends AppCompatActivity implements
         View.OnClickListener,
-        EventListener<DocumentSnapshot> {
+        EventListener<DocumentSnapshot>,
+        ExerciseDialogFragment.ExerciseListener {
 
-    private static final String TAG = "WorkoutPlanDetail";
+    private static final String TAG = "WorkoutDetail";
 
-    public static final String KEY_WORKOUT_PLAN_ID = "key_workout_plan_id";
+    public static final String KEY_WORKOUT_PLAN_ID = "key_workout_id";
 
     private ImageView mImageView;
     private TextView mNameView;
@@ -63,18 +64,19 @@ public class WorkoutPlanDetailActivity extends AppCompatActivity implements
     private TextView mCategoryView;
     private TextView mDurationView;
     private TextView mDaysWeekView;
+    private TextView mExercisesView;
+    private TextView mSetsView;
     private ViewGroup mEmptyView;
-    private TextView mNumRatingsView;
-    private MaterialRatingBar mRatingIndicator;
-    private RecyclerView mRatingsRecycler;
+    private RecyclerView mExerciseRecycler;
 
+    private FirebaseUser mUser;
     private FirebaseFirestore mFirestore;
-    private DocumentReference mRestaurantRef;
-    private ListenerRegistration mRestaurantRegistration;
+    private DocumentReference mWorkoutRef;
+    private ListenerRegistration mWorkoutRegistration;
 
-    private RatingDialogFragment mRatingDialog;
+    private ExerciseDialogFragment mExerciseDialog;
 
-    private RatingAdapter mRatingAdapter;
+    private ExerciseAdapter mExerciseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,73 +85,73 @@ public class WorkoutPlanDetailActivity extends AppCompatActivity implements
         
         mImageView = findViewById(R.id.workout_plan_image);
         mNameView = findViewById(R.id.workout_plan_name);
-        mRatingIndicator = findViewById(R.id.workout_plan_rating);
-        mNumRatingsView = findViewById(R.id.workout_plan_ratings);
         mDifficultyView = findViewById(R.id.workout_plan_difficulty);
         mCategoryView = findViewById(R.id.workout_plan_category);
         mDurationView = findViewById(R.id.workout_plan_duration);
+        mSetsView = findViewById(R.id.workout_plan_sets);
+        mExercisesView = findViewById(R.id.workout_plan_exercises);
         mDaysWeekView = findViewById(R.id.workout_plan_days_week);
-        mEmptyView = findViewById(R.id.view_empty_ratings);
-        mRatingsRecycler = findViewById(R.id.recycler_ratings);
+        mEmptyView = findViewById(R.id.view_empty_exercises);
+        mExerciseRecycler = findViewById(R.id.recycler_exercises);
 
         findViewById(R.id.workout_plan_button_back).setOnClickListener(this);
-        findViewById(R.id.fab_show_rating_dialog).setOnClickListener(this);
+        findViewById(R.id.fab_show_exercise_dialog).setOnClickListener(this);
 
-        // Get restaurant ID from extras
-        String restaurantId = getIntent().getExtras().getString(KEY_WORKOUT_PLAN_ID);
-        if (restaurantId == null) {
+        // Get workout ID from extras
+        String workoutId = getIntent().getExtras().getString(KEY_WORKOUT_PLAN_ID);
+        if (workoutId == null) {
             throw new IllegalArgumentException("Must pass extra " + KEY_WORKOUT_PLAN_ID);
         }
 
         // Initialize Firestore
         mFirestore = FirebaseFirestore.getInstance();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // Get reference to the restaurant
-        mRestaurantRef = mFirestore.collection("restaurants").document(restaurantId);
+        mWorkoutRef = mFirestore.collection("workouts").document(workoutId);
 
-        // Get ratings
-        Query ratingsQuery = mRestaurantRef
-                .collection("ratings")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
-                .limit(50);
+        // Get exercises
+        Query exercisesQuery = mWorkoutRef
+                .collection("exercises")
+                .orderBy("weight", Query.Direction.DESCENDING);
 
         // RecyclerView
-        mRatingAdapter = new RatingAdapter(ratingsQuery) {
+        mExerciseAdapter = new ExerciseAdapter(exercisesQuery) {
             @Override
             protected void onDataChanged() {
                 if (getItemCount() == 0) {
-                    mRatingsRecycler.setVisibility(View.GONE);
+                    mExerciseRecycler.setVisibility(View.GONE);
                     mEmptyView.setVisibility(View.VISIBLE);
                 } else {
-                    mRatingsRecycler.setVisibility(View.VISIBLE);
+                    mExerciseRecycler.setVisibility(View.VISIBLE);
                     mEmptyView.setVisibility(View.GONE);
                 }
             }
         };
 
-        mRatingsRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mRatingsRecycler.setAdapter(mRatingAdapter);
+        mExerciseRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mExerciseRecycler.setAdapter(mExerciseAdapter);
 
-        mRatingDialog = new RatingDialogFragment();
+        mExerciseDialog = new ExerciseDialogFragment();
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        mRatingAdapter.startListening();
-        mRestaurantRegistration = mRestaurantRef.addSnapshotListener(this);
+        mExerciseAdapter.startListening();
+        mWorkoutRegistration = mWorkoutRef.addSnapshotListener(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
-        mRatingAdapter.stopListening();
+        mExerciseAdapter.stopListening();
 
-        if (mRestaurantRegistration != null) {
-            mRestaurantRegistration.remove();
-            mRestaurantRegistration = null;
+        if (mWorkoutRegistration != null) {
+            mWorkoutRegistration.remove();
+            mWorkoutRegistration = null;
         }
     }
 
@@ -159,43 +161,40 @@ public class WorkoutPlanDetailActivity extends AppCompatActivity implements
             case R.id.workout_plan_button_back:
                 onBackArrowClicked(v);
                 break;
-            case R.id.fab_show_rating_dialog:
-                onAddRatingClicked(v);
+            case R.id.fab_show_exercise_dialog:
+                onAddExerciseClicked(v);
                 break;
         }
     }
 
-    private Task<Void> addRating(final DocumentReference restaurantRef, final Rating rating) {
+    private Task<Void> addExercise(final DocumentReference workoutRef, final Exercise exercise) {
             // Create reference for new rating, for use inside the transaction
-            final DocumentReference ratingRef = restaurantRef.collection("ratings")
+            final DocumentReference exerciseRef = workoutRef.collection("exercises")
                     .document();
 
             // In a transaction, add the new rating and update the aggregate totals
             return mFirestore.runTransaction(new Transaction.Function<Void>() {
                 @Override
-                public Void apply(Transaction transaction)
+                public Void apply(@NonNull Transaction transaction)
                         throws FirebaseFirestoreException {
 
-                    Restaurant restaurant = transaction.get(restaurantRef)
-                            .toObject(Restaurant.class);
+                    Workout workout = transaction.get(workoutRef)
+                            .toObject(Workout.class);
 
-                    // Compute new number of ratings
-                    assert restaurant != null;
-                    int newNumRatings = restaurant.getNumRatings() + 1;
+                    // Compute new number of sets
+                    assert workout != null;
+                    int newNumSets = workout.getSets() + exercise.getSets();
 
-                    // Compute new average rating
-                    double oldRatingTotal = restaurant.getAvgRating() *
-                            restaurant.getNumRatings();
-                    double newAvgRating = (oldRatingTotal + rating.getRating()) /
-                            newNumRatings;
+                    // Compute new number of exercises
+                    int newNumExercises = workout.getNumExercises() + 1;
 
                     // Set new restaurant info
-                    restaurant.setNumRatings(newNumRatings);
-                    restaurant.setAvgRating(newAvgRating);
+                    workout.setSets(newNumSets);
+                    workout.setNumExercises(newNumExercises);
 
                     // Commit to Firestore
-                    transaction.set(restaurantRef, restaurant);
-                    transaction.set(ratingRef, rating);
+                    transaction.set(workoutRef, workout);
+                    transaction.set(exerciseRef, exercise);
 
                     return null;
                 }
@@ -203,31 +202,31 @@ public class WorkoutPlanDetailActivity extends AppCompatActivity implements
     }
 
     /**
-     * Listener for the Restaurant document ({@link #mRestaurantRef}).
+     * Listener for the Workout document ({@link #mWorkoutRef}).
      */
     @Override
     public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
         if (e != null) {
-            Log.w(TAG, "restaurant:onEvent", e);
+            Log.w(TAG, "workout:onEvent", e);
             return;
         }
 
-        onRestaurantLoaded(snapshot.toObject(WorkoutPlan.class));
+        onWorkoutLoaded(snapshot.toObject(Workout.class));
     }
 
-    private void onRestaurantLoaded(WorkoutPlan workoutPlan) {
+    private void onWorkoutLoaded(Workout workout) {
 
-        mNameView.setText(workoutPlan.getName());
-        mRatingIndicator.setRating((float) workoutPlan.getAvgRating());
-        mNumRatingsView.setText(getString(R.string.fmt_num_ratings, workoutPlan.getNumRatings()));
-        mDifficultyView.setText(workoutPlan.getDifficulty().toString());
-        mCategoryView.setText(workoutPlan.getCategory().toString());
-        mDurationView.setText(workoutPlan.getDuration());
-        mDaysWeekView.setText(workoutPlan.getDaysWeek());
+        mNameView.setText(workout.getName());
+        mDifficultyView.setText(workout.getDifficulty().toString());
+        mCategoryView.setText(workout.getCategory().toString());
+        mDurationView.setText(workout.getDuration() + " min");
+        mDaysWeekView.setText(workout.getDaysOfWeek().size() + " Days / Week");
+        mExercisesView.setText(workout.getNumExercises() + " Exercises");
+        mSetsView.setText("(Total " + workout.getSets() + " Sets)");
 
         // Background image
         Glide.with(mImageView.getContext())
-                .load(workoutPlan.getPhoto())
+                .load(workout.getPhoto())
                 .into(mImageView);
     }
 
@@ -235,27 +234,27 @@ public class WorkoutPlanDetailActivity extends AppCompatActivity implements
         onBackPressed();
     }
 
-    public void onAddRatingClicked(View view) {
-        mRatingDialog.show(getSupportFragmentManager(), RatingDialogFragment.TAG);
+    public void onAddExerciseClicked(View view) {
+        mExerciseDialog.show(getSupportFragmentManager(), ExerciseDialogFragment.TAG);
     }
 
-    public void onRating(Rating rating) {
+    public void onExercise(Exercise exercise) {
         // In a transaction, add the new rating and update the aggregate totals
-        addRating(mRestaurantRef, rating)
+        addExercise(mWorkoutRef, exercise)
                 .addOnSuccessListener(this, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "Rating added");
+                        Log.d(TAG, "Workout added");
 
                         // Hide keyboard and scroll to top
                         hideKeyboard();
-                        mRatingsRecycler.smoothScrollToPosition(0);
+                        mExerciseRecycler.smoothScrollToPosition(0);
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Add rating failed", e);
+                        Log.w(TAG, "Add workout failed", e);
 
                         // Show failure message and hide keyboard
                         hideKeyboard();
